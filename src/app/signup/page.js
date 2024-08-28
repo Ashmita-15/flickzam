@@ -1,11 +1,10 @@
-// src/app/signup/page.js
-'use client'; // To ensure client-side interactivity
-
+'use client';
 import React, { useState } from 'react';
 import { Typography, Container, Box, TextField, Button, Stack } from '@mui/material';
 
 export default function SignupPage() {
-  const [showSignUpForm, setShowSignUpForm] = useState(false); // Track if sign-up form should be shown
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
+  const [isSignedUp, setIsSignedUp] = useState(false);
 
   const handleSignUpClick = () => {
     setShowSignUpForm(true);
@@ -15,36 +14,49 @@ export default function SignupPage() {
     setShowSignUpForm(false);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Here you would typically handle the form submission
+    // For now, we'll just set isSignedUp to true
+    setIsSignedUp(true);
+  };
+
+  const ThankYouMessage = () => (
+    <Box sx={{ textAlign: 'center', color: '#fff' }}>
+      <Typography variant="h4" gutterBottom>
+        Thank You for Signing Up!
+      </Typography>
+      
+    </Box>
+  );
+
   return (
     <Container
       sx={{
         display: 'flex',
-        justifyContent: 'center', // Center the content horizontally
+        justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
         padding: 4,
       }}
     >
-      {/* Container for image and form */}
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
           width: '100%',
-          maxWidth: 1200, // Set a maximum width for the combined content
+          maxWidth: 1200,
         }}
       >
-        {/* Image on the left */}
         <Box
           sx={{
             flexShrink: 0,
-            width: 400, // Set the width of the image box
+            width: 400,
             height: 'auto',
             display: 'flex',
-            justifyContent: 'flex-end',// Allow height to adjust based on the image aspect ratio
-            marginLeft: '20vw', 
-            padding:20
-            // Space between the image and the form
+            justifyContent: 'flex-end',
+            marginLeft: '20vw',
+            padding: 20
           }}
         >
           <img
@@ -54,158 +66,127 @@ export default function SignupPage() {
               width: '600px',
               height: '600px',
               borderRadius: '8px',
-              padding:'-10vh', // Optional: add some rounding to the corners of the image box
+              padding: '-10vh',
             }}
           />
         </Box>
 
-        {/* Form content */}
         <Box
           sx={{
-           
             width: '100%',
-            maxWidth: 400, // Set a maximum width for the form
+            maxWidth: 400,
             padding: 4,
             backgroundColor: '#000',
             borderRadius: 2,
-            boxShadow: `0 0 10px 4px rgba(0, 0, 255, 0.6)`, // Blue glowy border around the entire form
+            boxShadow: `0 0 10px 4px rgba(0, 0, 255, 0.6)`,
             color: '#fff',
             textAlign: 'center',
-            marginTop:'-5vh',
-            marginRight:'2vh'
+            marginTop: '-5vh',
+            marginRight: '2vh'
           }}
         >
-          {/* Heading above the form */}
-          <Typography variant="h4" gutterBottom>
-            {showSignUpForm ? 'Sign-Up' : 'Login'}
-          </Typography>
-
-          {/* Form fields */}
-          {showSignUpForm ? (
-            <Stack spacing={2}>
-              <TextField
-                label="Name"
-                variant="outlined"
-                fullWidth
-                sx={{
-                  input: { color: 'white' },
-                  label: { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    borderColor: '#00f', // Blue border for input fields
-                    '& fieldset': {
-                      borderColor: '#00f', // Permanent blue border color
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#00f', // Blue border on hover
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#00f', // Blue border when focused
-                    },
-                  },
-                }}
-              />
-              <TextField
-                label="Username"
-                variant="outlined"
-                fullWidth
-                sx={{
-                  input: { color: 'white' },
-                  label: { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    borderColor: '#00f', // Blue border for input fields
-                    '& fieldset': {
-                      borderColor: '#00f', // Permanent blue border color
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#00f', // Blue border on hover
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#00f', // Blue border when focused
-                    },
-                  },
-                }}
-              />
-              <TextField
-                label="Create Password"
-                variant="outlined"
-                type="password"
-                fullWidth
-                sx={{
-                  input: { color: 'white' },
-                  label: { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    borderColor: '#00f', // Blue border for input fields
-                    '& fieldset': {
-                      borderColor: '#00f', // Permanent blue border color
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#00f', // Blue border on hover
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#00f', // Blue border when focused
-                    },
-                  },
-                }}
-              />
-              <Button variant="contained" color="primary" fullWidth>
-                Sign Up
-              </Button>
-              <Typography variant="body1" sx={{ marginTop: 2 }}>
-                Already a user? <Button variant="text" color="secondary" sx={{ fontWeight: 'bold', textDecoration: 'underline' }} onClick={handleLoginClick}>Login</Button>
-              </Typography>
-            </Stack>
+          {isSignedUp ? (
+            <ThankYouMessage />
           ) : (
-            <Stack spacing={2}>
-              <TextField
-                label="Username"
-                variant="outlined"
-                fullWidth
-                sx={{
-                  input: { color: 'white' },
-                  label: { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    borderColor: '#00f', // Blue border for input fields
-                    '& fieldset': {
-                      borderColor: '#00f', // Permanent blue border color
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#00f', // Blue border on hover
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#00f', // Blue border when focused
-                    },
-                  },
-                }}
-              />
-              <TextField
-                label="Password"
-                variant="outlined"
-                type="password"
-                fullWidth
-                sx={{
-                  input: { color: 'white' },
-                  label: { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    borderColor: '#00f', // Blue border for input fields
-                    '& fieldset': {
-                      borderColor: '#00f', // Permanent blue border color
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#00f', // Blue border on hover
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#00f', // Blue border when focused
-                    },
-                  },
-                }}
-              />
-              <Button variant="contained" color="primary" fullWidth>
-                Login
-              </Button>
-              <Typography variant="body1" sx={{ marginTop: 2 }}>
-                If you don't have an account, <Button variant="text" color="secondary" sx={{ fontWeight: 'bold', textDecoration: 'underline' }} onClick={handleSignUpClick}>Sign Up</Button>
+            <>
+              <Typography variant="h4" gutterBottom>
+                {showSignUpForm ? 'Sign-Up' : 'Login'}
               </Typography>
-            </Stack>
+
+              {showSignUpForm ? (
+                <form onSubmit={handleSubmit}>
+                  <Stack spacing={2}>
+                    <TextField
+                      label="Name"
+                      variant="outlined"
+                      fullWidth
+                      sx={{
+                        input: { color: 'white' },
+                        label: { color: 'rgba(255, 255, 255, 0.7)' },
+                        '& .MuiOutlinedInput-root': {
+                          '& fieldset': { borderColor: '#00f' },
+                          '&:hover fieldset': { borderColor: '#00f' },
+                          '&.Mui-focused fieldset': { borderColor: '#00f' },
+                        },
+                      }}
+                    />
+                    <TextField
+                      label="Username"
+                      variant="outlined"
+                      fullWidth
+                      sx={{
+                        input: { color: 'white' },
+                        label: { color: 'rgba(255, 255, 255, 0.7)' },
+                        '& .MuiOutlinedInput-root': {
+                          '& fieldset': { borderColor: '#00f' },
+                          '&:hover fieldset': { borderColor: '#00f' },
+                          '&.Mui-focused fieldset': { borderColor: '#00f' },
+                        },
+                      }}
+                    />
+                    <TextField
+                      label="Create Password"
+                      variant="outlined"
+                      type="password"
+                      fullWidth
+                      sx={{
+                        input: { color: 'white' },
+                        label: { color: 'rgba(255, 255, 255, 0.7)' },
+                        '& .MuiOutlinedInput-root': {
+                          '& fieldset': { borderColor: '#00f' },
+                          '&:hover fieldset': { borderColor: '#00f' },
+                          '&.Mui-focused fieldset': { borderColor: '#00f' },
+                        },
+                      }}
+                    />
+                    <Button variant="contained" color="primary" fullWidth type="submit">
+                      Sign Up
+                    </Button>
+                    <Typography variant="body1" sx={{ marginTop: 2 }}>
+                      Already a user? <Button variant="text" color="secondary" sx={{ fontWeight: 'bold', textDecoration: 'underline' }} onClick={handleLoginClick}>Login</Button>
+                    </Typography>
+                  </Stack>
+                </form>
+              ) : (
+                <Stack spacing={2}>
+                  <TextField
+                    label="Username"
+                    variant="outlined"
+                    fullWidth
+                    sx={{
+                      input: { color: 'white' },
+                      label: { color: 'rgba(255, 255, 255, 0.7)' },
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': { borderColor: '#00f' },
+                        '&:hover fieldset': { borderColor: '#00f' },
+                        '&.Mui-focused fieldset': { borderColor: '#00f' },
+                      },
+                    }}
+                  />
+                  <TextField
+                    label="Password"
+                    variant="outlined"
+                    type="password"
+                    fullWidth
+                    sx={{
+                      input: { color: 'white' },
+                      label: { color: 'rgba(255, 255, 255, 0.7)' },
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': { borderColor: '#00f' },
+                        '&:hover fieldset': { borderColor: '#00f' },
+                        '&.Mui-focused fieldset': { borderColor: '#00f' },
+                      },
+                    }}
+                  />
+                  <Button variant="contained" color="primary" fullWidth>
+                    Login
+                  </Button>
+                  <Typography variant="body1" sx={{ marginTop: 2 }}>
+                    If you don't have an account, <Button variant="text" color="secondary" sx={{ fontWeight: 'bold', textDecoration: 'underline' }} onClick={handleSignUpClick}>Sign Up</Button>
+                  </Typography>
+                </Stack>
+              )}
+            </>
           )}
         </Box>
       </Box>
