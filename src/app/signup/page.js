@@ -7,6 +7,11 @@ import { useRouter } from 'next/navigation';
 
 export default function SignupPage() {
   const [showSignUpForm, setShowSignUpForm] = useState(false); // Track if sign-up form should be shown
+  const [error, setError] = useState(''); // State for managing error messages
+  const [email, setEmail] = useState(''); // State for email
+  const [password, setPassword] = useState(''); // State for password
+  const [isSignedUp, setIsSignedUp] = useState(false); // State to track sign-up status
+  const router = useRouter(); // Next.js router
 
   const handleSignUpClick = () => {
     setShowSignUpForm(true);
@@ -21,16 +26,17 @@ export default function SignupPage() {
   const handleSignUp = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate_();
+      setIsSignedUp(true); // Set sign-up status to true
+      setError(''); // Clear error message
     } catch (error) {
-      setError(error.message);
+      setError(error.message); // Set error message if signup fails
     }
   };
 
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate_();
+      router.push('/dashboard'); // Redirect to the dashboard or home page
     } catch (error) {
       setError(error.message);
     }
@@ -38,19 +44,8 @@ export default function SignupPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Here you would typically handle the form submission
-    // For now, we'll just set isSignedUp to true
-    setIsSignedUp(true);
+    // Handle form submission
   };
-
-  const ThankYouMessage = () => (
-    <Box sx={{ textAlign: 'center', color: '#fff' }}>
-      <Typography variant="h4" gutterBottom>
-        Thank You for Signing Up!
-      </Typography>
-      
-    </Box>
-  );
 
   return (
     <Container
@@ -76,10 +71,9 @@ export default function SignupPage() {
             width: 400,
             height: 'auto',
             display: 'flex',
-            justifyContent: 'flex-end',// Allow height to adjust based on the image aspect ratio
+            justifyContent: 'flex-end',
             marginLeft: '20vw', 
             padding:20
-            // Space between the image and the form
           }}
         >
           <img
@@ -89,7 +83,7 @@ export default function SignupPage() {
               width: '600px',
               height: '600px',
               borderRadius: '8px',
-              padding:'-10vh', // Optional: add some rounding to the corners of the image box
+              padding:'-10vh',
             }}
           />
         </Box>
@@ -108,137 +102,144 @@ export default function SignupPage() {
             marginRight: '2vh'
           }}
         >
-          {/* Heading above the form */}
-          <Typography variant="h4" gutterBottom>
-            {showSignUpForm ? 'Sign-Up' : 'Login'}
-          </Typography>
-
-          {/* Form fields */}
-          {showSignUpForm ? (
-            <Stack spacing={2}>
-              <TextField
-                label="Name"
-                variant="outlined"
-                fullWidth
-                sx={{
-                  input: { color: 'white' },
-                  label: { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    borderColor: '#00f', // Blue border for input fields
-                    '& fieldset': {
-                      borderColor: '#00f', // Permanent blue border color
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#00f', // Blue border on hover
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#00f', // Blue border when focused
-                    },
-                  },
-                }}
-              />
-              <TextField
-                label="Username"
-                variant="outlined"
-                fullWidth
-                sx={{
-                  input: { color: 'white' },
-                  label: { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    borderColor: '#00f', // Blue border for input fields
-                    '& fieldset': {
-                      borderColor: '#00f', // Permanent blue border color
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#00f', // Blue border on hover
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#00f', // Blue border when focused
-                    },
-                  },
-                }}
-              />
-              <TextField
-                label="Create Password"
-                variant="outlined"
-                type="password"
-                fullWidth
-                sx={{
-                  input: { color: 'white' },
-                  label: { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    borderColor: '#00f', // Blue border for input fields
-                    '& fieldset': {
-                      borderColor: '#00f', // Permanent blue border color
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#00f', // Blue border on hover
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#00f', // Blue border when focused
-                    },
-                  },
-                }}
-              />
-              <Button variant="contained" color="primary" fullWidth>
-                Sign Up
-              </Button>
-              <Typography variant="body1" sx={{ marginTop: 2 }}>
-                Already a user? <Button variant="text" color="secondary" sx={{ fontWeight: 'bold', textDecoration: 'underline' }} onClick={handleLoginClick}>Login</Button>
+          {/* Display Thank You Message if user is signed up */}
+          {isSignedUp ? (
+            <Box sx={{ textAlign: 'center', color: '#fff' }}>
+              <Typography variant="h4" gutterBottom>
+                Thank You for Signing Up!
               </Typography>
-            </Stack>
+            </Box>
           ) : (
-            <Stack spacing={2}>
-              <TextField
-                label="Username"
-                variant="outlined"
-                fullWidth
-                sx={{
-                  input: { color: 'white' },
-                  label: { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    borderColor: '#00f', // Blue border for input fields
-                    '& fieldset': {
-                      borderColor: '#00f', // Permanent blue border color
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#00f', // Blue border on hover
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#00f', // Blue border when focused
-                    },
-                  },
-                }}
-              />
-              <TextField
-                label="Password"
-                variant="outlined"
-                type="password"
-                fullWidth
-                sx={{
-                  input: { color: 'white' },
-                  label: { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    borderColor: '#00f', // Blue border for input fields
-                    '& fieldset': {
-                      borderColor: '#00f', // Permanent blue border color
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#00f', // Blue border on hover
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#00f', // Blue border when focused
-                    },
-                  },
-                }}
-              />
-              <Button variant="contained" color="primary" fullWidth>
-                Login
-              </Button>
-              <Typography variant="body1" sx={{ marginTop: 2 }}>
-                If you don't have an account, <Button variant="text" color="secondary" sx={{ fontWeight: 'bold', textDecoration: 'underline' }} onClick={handleSignUpClick}>Sign Up</Button>
+            <>
+              {/* Display error message if any */}
+              {error && (
+                <Typography color="error" variant="body1" sx={{ marginBottom: 2 }}>
+                  {error}
+                </Typography>
+              )}
+
+              {/* Heading above the form */}
+              <Typography variant="h4" gutterBottom>
+                {showSignUpForm ? 'Sign-Up' : 'Login'}
               </Typography>
-            </Stack>
+
+              {/* Form fields */}
+              {showSignUpForm ? (
+                <Stack spacing={2}>
+                  <TextField
+                    label="Email"
+                    variant="outlined"
+                    type="email"
+                    fullWidth
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    sx={{
+                      input: { color: 'white' },
+                      label: { color: 'rgba(255, 255, 255, 0.7)' },
+                      '& .MuiOutlinedInput-root': {
+                        borderColor: '#00f',
+                        '& fieldset': {
+                          borderColor: '#00f',
+                        },
+                        '&:hover fieldset': {
+                          borderColor: '#00f',
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#00f',
+                        },
+                      },
+                    }}
+                  />
+                  <TextField
+                    label="Password"
+                    variant="outlined"
+                    type="password"
+                    fullWidth
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    sx={{
+                      input: { color: 'white' },
+                      label: { color: 'rgba(255, 255, 255, 0.7)' },
+                      '& .MuiOutlinedInput-root': {
+                        borderColor: '#00f',
+                        '& fieldset': {
+                          borderColor: '#00f',
+                        },
+                        '&:hover fieldset': {
+                          borderColor: '#00f',
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#00f',
+                        },
+                      },
+                    }}
+                  />
+                  <Button variant="contained" color="primary" fullWidth onClick={handleSignUp}>
+                    Sign Up
+                  </Button>
+                  <Typography variant="body1" sx={{ marginTop: 2 }}>
+                    Already a user? <Button variant="text" color="secondary" sx={{ fontWeight: 'bold', textDecoration: 'underline' }} onClick={handleLoginClick}>Login</Button>
+                  </Typography>
+                </Stack>
+              ) : (
+                <Stack spacing={2}>
+                  <TextField
+                    label="Email"
+                    variant="outlined"
+                    type="email"
+                    fullWidth
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    sx={{
+                      input: { color: 'white' },
+                      label: { color: 'rgba(255, 255, 255, 0.7)' },
+                      '& .MuiOutlinedInput-root': {
+                        borderColor: '#00f',
+                        '& fieldset': {
+                          borderColor: '#00f',
+                        },
+                        '&:hover fieldset': {
+                          borderColor: '#00f',
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#00f',
+                        },
+                      },
+                    }}
+                  />
+                  <TextField
+                    label="Password"
+                    variant="outlined"
+                    type="password"
+                    fullWidth
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    sx={{
+                      input: { color: 'white' },
+                      label: { color: 'rgba(255, 255, 255, 0.7)' },
+                      '& .MuiOutlinedInput-root': {
+                        borderColor: '#00f',
+                        '& fieldset': {
+                          borderColor: '#00f',
+                        },
+                        '&:hover fieldset': {
+                          borderColor: '#00f',
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#00f',
+                        },
+                      },
+                    }}
+                  />
+                  <Button variant="contained" color="primary" fullWidth onClick={handleLogin}>
+                    Login
+                  </Button>
+                  <Typography variant="body1" sx={{ marginTop: 2 }}>
+                    If you don't have an account, <Button variant="text" color="secondary" sx={{ fontWeight: 'bold', textDecoration: 'underline' }} onClick={handleSignUpClick}>Sign Up</Button>
+                  </Typography>
+                </Stack>
+              )}
+            </>
           )}
         </Box>
       </Box>

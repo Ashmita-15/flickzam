@@ -1,11 +1,11 @@
-'use client'
+/*'use client'
 
 import React, { useEffect, useRef } from 'react';
 import { Box, Drawer, List, ListItem, ListItemText, CssBaseline, AppBar, Toolbar, Typography, Container, Card, TextField, InputAdornment, IconButton } from '@mui/material';
 import { useState } from "react";
 import { Person, SendAndArchiveRounded } from "@mui/icons-material";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import MessageBox from './messge_box';
+import MessageBox from '../search/messge_box';
 
 
 const drawerWidth = 240;
@@ -195,3 +195,4 @@ function ChatPage() {
 }
 
 export default ChatPage;
+*/
