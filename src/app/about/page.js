@@ -1,28 +1,8 @@
 "use client"; // Ensures the file is treated as a client component
 
-import { Typography, Container, Grid, Paper, Box, Divider, Button } from '@mui/material';
-import { useState, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer'; // For scroll animations
-
-// Helper function to determine if the viewport width is small
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 600);
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return isMobile;
-}
+import { Typography, Container, Grid, Paper, Box, Divider } from '@mui/material';
 
 export default function AboutPage() {
-  const isMobile = useIsMobile();
-  const { ref: aboutRef, inView: aboutInView } = useInView({ triggerOnce: true });
-  const { ref: visionRef, inView: visionInView } = useInView({ triggerOnce: true });
-
   return (
     <Box sx={{ 
       minHeight: '100vh',
@@ -50,11 +30,6 @@ export default function AboutPage() {
               textShadow: '0 0 15px rgba(192,192,192,0.8)', 
               mb: 4,
               fontFamily: 'Poppins, sans-serif',
-              '&:hover': {
-                color: '#f0f0f0',
-                textShadow: '0 0 20px rgba(255, 255, 255, 0.8)',
-              },
-              transition: 'color 0.3s ease, text-shadow 0.3s ease'
             }}
           >
             About FlickZam
@@ -68,11 +43,6 @@ export default function AboutPage() {
               textShadow: '0 0 12px rgba(192,192,192,0.6)', 
               mb: 6,
               fontFamily: 'Poppins, sans-serif',
-              '&:hover': {
-                color: '#f0f0f0',
-                textShadow: '0 0 15px rgba(255, 255, 255, 0.8)',
-              },
-              transition: 'color 0.3s ease, text-shadow 0.3s ease'
             }}
           >
             Revolutionizing movie discovery with cutting-edge AI.
@@ -92,10 +62,7 @@ export default function AboutPage() {
 
           <Grid container spacing={4} justifyContent="center">
             {['Find by Description', 'Find by Dialogue', 'Find by Image'].map((title, index) => (
-              <Grid item xs={12} md={4} key={index} ref={aboutRef} sx={{ 
-                transition: '0.5s', 
-                opacity: aboutInView ? 1 : 0, 
-                transform: aboutInView ? 'translateY(0)' : 'translateY(20px)',
+              <Grid item xs={12} md={4} key={index} sx={{ 
                 px: 1, // Ensure padding on sides
               }}>
                 <Paper elevation={3} sx={{ 
@@ -146,13 +113,7 @@ export default function AboutPage() {
                 textShadow: '0 0 12px rgba(192,192,192,0.8)', 
                 mb: 4,
                 fontFamily: 'Poppins, sans-serif', // Stylish font for vision header
-                '&:hover': {
-                  color: '#f0f0f0',
-                  textShadow: '0 0 15px rgba(255, 255, 255, 0.8)',
-                },
-                transition: 'color 0.3s ease, text-shadow 0.3s ease'
-              }} 
-              ref={visionRef}
+              }}
             >
               Our Vision
             </Typography>
@@ -169,6 +130,20 @@ export default function AboutPage() {
             </Typography>
           </Box>
         </Container>
+      </Box>
+
+      {/* Footer */}
+      <Box
+        sx={{
+          backgroundColor: '#000',
+          color: '#fff',
+          textAlign: 'center',
+          py: 2,
+        }}
+      >
+        <Typography variant="body2" sx={{ fontFamily: 'Raleway, sans-serif' }}>
+          © 2024 FlickZam. All Rights Reserved.
+        </Typography>
       </Box>
     </Box>
   );

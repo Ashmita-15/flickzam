@@ -69,12 +69,17 @@ export default function Layout({ children }) {
                 FLICKZAM
               </Typography>
               <Box sx={{ display: 'flex', gap: 2 }}>
-                {['/', '/search', '/about', '/signup'].map((href, index) => (
+                {[
+                  { href: '/', label: 'Home' },
+                  { href: '/search', label: 'Search' },
+                  { href: '/about', label: 'About' },
+                  { href: '/signup', label: 'Signup' } // Ensure 'Signup' is the correct route
+                ].map((item, index) => (
                   <Button
                     key={index}
                     color="inherit"
                     component={Link}
-                    href={href}
+                    href={item.href}
                     sx={{
                       fontFamily: 'Raleway, sans-serif',
                       '&:hover': {
@@ -84,7 +89,7 @@ export default function Layout({ children }) {
                       },
                     }}
                   >
-                    {href === '/' ? 'Home' : href.slice(1).charAt(0).toUpperCase() + href.slice(2)}
+                    {item.label}
                   </Button>
                 ))}
               </Box>
