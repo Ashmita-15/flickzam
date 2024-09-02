@@ -165,7 +165,7 @@ export default function SignupPage() {
                 gutterBottom
                 sx={{ fontFamily: 'Poppins, sans-serif' }}
               >
-                Thank You for Signing Up!
+                Thank You for Signing Up! You'll be notified soon when our app is ready
               </Typography>
             </Box>
           ) : (
