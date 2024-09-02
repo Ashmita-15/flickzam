@@ -99,6 +99,21 @@ export default function Layout({ children }) {
         <main style={{ padding: '4rem 1rem 1rem', flex: 1 }}>
           {children}
         </main>
+        <footer
+          style={{
+            backgroundColor: '#000',
+            color: '#fff',
+            textAlign: 'center',
+            padding: '1rem',
+            width: '100%',
+            position: 'fixed',
+            bottom: 0,
+          }}
+        >
+          <Typography variant="body2" sx={{ fontFamily: 'Raleway, sans-serif' }}>
+            © 2024 FlickZam. All Rights Reserved.
+          </Typography>
+        </footer>
       </body>
     </html>
   );

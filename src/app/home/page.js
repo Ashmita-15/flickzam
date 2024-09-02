@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react';
 import { Typography, Box, Button, Stack } from '@mui/material';
 import { Global } from '@emotion/react';
-import Link from 'next/link';
 
 export default function HomePage() {
   const handleGetStarted = () => {
@@ -39,9 +38,17 @@ export default function HomePage() {
             '50%': { backgroundPosition: '100% 100%' },
             '100%': { backgroundPosition: '0% 0%' },
           },
+          '@keyframes fadeIn': {
+            '0%': { opacity: 0, transform: 'translateY(20px)' },
+            '100%': { opacity: 1, transform: 'translateY(0)' },
+          },
           '.background-image': {
             backgroundAttachment: 'fixed',
             animation: 'backgroundMove 60s linear infinite',
+          },
+          '.fade-in-text': {
+            opacity: 0,
+            animation: 'fadeIn 2s ease forwards',
           },
         }}
       />
@@ -85,6 +92,7 @@ export default function HomePage() {
             <Typography
               variant="h2"
               color="white"
+              className="fade-in-text"
               sx={{
                 fontFamily: 'Montserrat, sans-serif',
                 fontWeight: 700,
@@ -96,11 +104,13 @@ export default function HomePage() {
             <Typography
               variant="h5"
               color="white"
+              className="fade-in-text"
               sx={{
                 fontFamily: 'Raleway, sans-serif',
                 fontWeight: 600,
                 textShadow: '2px 2px 10px rgba(0, 0, 0, 0.7)',
                 maxWidth: '70%',
+                animationDelay: '0.5s', // Delay for the subtitle
               }}
             >
               Discover your favorite movies and shows with AI-powered search!
@@ -108,6 +118,7 @@ export default function HomePage() {
             <Button
               variant="contained"
               onClick={handleGetStarted}
+              className="fade-in-text"
               sx={{
                 fontFamily: 'Raleway, sans-serif',
                 fontSize: '1.1rem',
@@ -125,31 +136,15 @@ export default function HomePage() {
                   transform: 'scale(1.05)',
                   transition: 'transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease',
                 },
+                animationDelay: '1s', // Delay for the button
               }}
             >
               Get Started
             </Button>
-            {/* Fallback link for testing */}
-            <Link href="/signup" passHref>
-              <Typography color="white" sx={{ textDecoration: 'underline', cursor: 'pointer' }}>
-                Fallback: Go to Signup
-              </Typography>
-            </Link>
           </Stack>
         </Box>
 
-        <Box
-          sx={{
-            backgroundColor: '#000',
-            color: '#fff',
-            textAlign: 'center',
-            py: 2,
-          }}
-        >
-          <Typography variant="body2" sx={{ fontFamily: 'Raleway, sans-serif' }}>
-            © 2024 FlickZam. All Rights Reserved.
-          </Typography>
-        </Box>
+       
       </Box>
     </>
   );
