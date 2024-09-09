@@ -144,18 +144,7 @@ export default function HomePage() {
           </Stack>
         </Box>
 
-        <Box
-          sx={{
-            backgroundColor: '#000',
-            color: '#fff',
-            textAlign: 'center',
-            py: 2,
-          }}
-        >
-          <Typography variant="body2" sx={{ fontFamily: 'Raleway, sans-serif' }}>
-            © 2024 FlickZam. All Rights Reserved.
-          </Typography>
-        </Box>
+        
       </Box>
     </>
   );

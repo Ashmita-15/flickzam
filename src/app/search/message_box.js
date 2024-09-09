@@ -1,52 +1,50 @@
-'use client';
-
 import React from 'react';
-import { SupportAgent } from "@mui/icons-material";
-import { Avatar, Box, Card, Typography } from "@mui/material";
-import Markdown from 'react-markdown';
+import { styled } from '@mui/material/styles';
+import { Typography, Avatar } from '@mui/material';
+import { SupportAgent } from '@mui/icons-material';
+
+// Styled components for the Message Box
+const MessageContainer = styled('div')(({ ai }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: ai ? 'flex-start' : 'flex-end',
+  width: '100%',
+  maxWidth: '600px', // Matches the max width of the chat box
+  margin: '8px 0',
+}));
+
+const MessageBubble = styled(Typography)(({ ai }) => ({
+  padding: '8px 16px',
+  backgroundColor: ai ? '#1e88e5' : '#ffca28', // Different colors for AI and user messages
+  color: '#ffffff',
+  borderRadius: '16px',
+  border: 'none',
+  maxWidth: '100%',
+  whiteSpace: 'pre-wrap', // Preserve line breaks
+  overflowWrap: 'break-word',
+  boxShadow: 'none',
+}));
 
 function MessageBox({ ai, text }) {
-    return (
-        <Box sx={{ display: "flex", justifyContent: ai ? "flex-start" : "flex-end", mb: 1 }}>
-            {ai ? (
-                <>
-                    <Avatar alt="Bot Avatar" sx={{ m: 1, bgcolor: '#004d40' }}>
-                        <SupportAgent sx={{ color: '#ffffff' }} />
-                    </Avatar>
-                    <Box
-                        sx={{
-                            maxWidth: "80%",
-                            backgroundColor: '#00695c',
-                            borderRadius: 4,
-                            padding: 2,
-                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                            color: '#ffffff',
-                            wordBreak: 'break-word',
-                        }}
-                    >
-                        <Typography variant="subtitle1" sx={{ fontFamily: 'Roboto, sans-serif' }}>
-                            <Markdown>{text}</Markdown>
-                        </Typography>
-                    </Box>
-                </>
-            ) : (
-                <Card
-                    sx={{
-                        maxWidth: "80%",
-                        backgroundColor: '#004d40',
-                        borderRadius: 4,
-                        padding: 2,
-                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                        color: '#ffffff',
-                    }}
-                >
-                    <Typography variant="body1" sx={{ fontFamily: 'Roboto, sans-serif' }}>
-                        {text}
-                    </Typography>
-                </Card>
-            )}
-        </Box>
-    );
+  return (
+    <MessageContainer ai={ai}>
+      {ai && (
+        <Avatar
+          sx={{
+            backgroundColor: '#1e88e5',
+            marginRight: '8px',
+            width: 32,
+            height: 32,
+          }}
+        >
+          <SupportAgent />
+        </Avatar>
+      )}
+      <MessageBubble ai={ai} variant="body1">
+        {text}
+      </MessageBubble>
+    </MessageContainer>
+  );
 }
 
 export default MessageBox;
